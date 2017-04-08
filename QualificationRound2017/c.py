@@ -14,23 +14,25 @@ for case in range(1, x + 1):
 
     defect = 2**j-1 - n
     parts = 2**(i-1)
-    no_defect = int(2**j / parts)
+    no_defect = int(2**j / parts) - 1
     # print(n, parts, no_defect)
-    # print(parts, defect)
+    # print("parts, defect", parts, defect)
 
     import math
     ave_defect = math.floor(defect / parts)
+    # print("totaldefect", defect)
+    # print("nodefect", no_defect)
     # print("ave_defect", ave_defect)
-
 
     y = 0
     z = 0
 
     rank = k - 2**(i-1)
-    if rank < defect % parts:
-        t= no_defect - ave_defect - 2
+    # print("rank, max", rank, defect%parts)
+    if rank < parts - defect%parts:
+        t= no_defect - ave_defect
     else:
-        t= no_defect - ave_defect - 1
+        t= no_defect - ave_defect -1
     # print(t)
     if t is 0:
         y, z = 0, 0
