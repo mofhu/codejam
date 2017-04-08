@@ -1,30 +1,46 @@
 x = int(input())
 
+# import time
+
 for case in range(1, x + 1):
     n, k = [int(s) for s in input().split(" ")]
-    # print(nums)
-    spaces = [n]
+    i = 0
+    j = 0
+    while (2**i <= k):
+        i += 1
+    while (2**j <= n):
+        j += 1
+    # print(i, j, 2**i-1, 2**j-1)
+
+    defect = 2**j-1 - n
+    parts = 2**(i-1)
+    no_defect = int(2**j / parts)
+    # print(n, parts, no_defect)
+    # print(parts, defect)
+
+    import math
+    ave_defect = math.floor(defect / parts)
+    # print("ave_defect", ave_defect)
+
+
     y = 0
     z = 0
-    for i in range(0, k):
-        t = spaces[-1]
-        # print(t)
-        if t is 1:
-            del spaces[-1]
-            y, z = 0, 0
-        elif t % 2 is 0:
-            del spaces[-1]
-            if t > 2:
-                spaces += [int(t/2-1), int(t/2)]
-            else:
-                spaces += [1]
-            y, z = t/2, t/2-1
-        else:
-            del spaces[-1]
-            spaces += [int((t-1)/2), int((t-1)/2)]
-            y, z = (t-1)/2, (t-1)/2
-        spaces = sorted(spaces)
-        # print(spaces, y, z)
 
+    rank = k - 2**(i-1)
+    if rank < defect % parts:
+        t= no_defect - ave_defect - 2
+    else:
+        t= no_defect - ave_defect - 1
+    # print(t)
+    if t is 0:
+        y, z = 0, 0
+    elif t % 2 is 0:
+        y, z = t/2, t/2-1
+    else:
+        y, z = (t-1)/2, (t-1)/2
+    # print(spaces, y, z)
+
+    # t1 = time.time()
+    # print(t1-t0)
     print("Case #{}: {} {}".format(case, int(y), int(z)))
 
